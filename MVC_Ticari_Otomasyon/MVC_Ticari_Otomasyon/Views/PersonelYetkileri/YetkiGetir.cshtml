@@ -1,0 +1,24 @@
+﻿@model MVC_Ticari_Otomasyon.Models.Siniflar.PersonelYetkisi
+@{
+    ViewBag.Title = "YetkiGetir";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<br />
+<h2>Yetki Güncelleme Sayfası</h2>
+<br />
+
+@using (Html.BeginForm("YetkiGuncelle", "PersonelYetkileri", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="form-group">
+        @Html.HiddenFor(x => x.YetkiID)
+
+        Yetki Adı
+        @Html.TextBoxFor(z => z.YetkiAdi, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.YetkiAdi, "", new { @style = "color:red" })
+        <br />
+
+    </div>
+    <br />
+    <button class="btn" style="background-color:#a725a4; color:antiquewhite">Değişiklikleri Kaydet</button>
+    <a href="/PersonelYetkileri/YetkiListesi" class="btn btn-info" style="background-color:darkcyan; color:aliceblue;">Yetki Listesi</a>}

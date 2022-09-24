@@ -1,0 +1,104 @@
+﻿@*@using MVC_Ticari_Otomasyon.Models.Siniflar                       //İlk yaptığımız klasik Listeleme View'u
+    @model List<Kategori>
+    @{
+        ViewBag.Title = "KategorileriListele";
+        Layout = "~/Views/Shared/AdminLayout.cshtml";
+    }
+
+    <table class="table table-bordered" style="margin-top:20px;">
+        <tr>
+            <th>ID</th>
+            <th>Kategori Adı</th>
+            <th>İşlemler</th>
+        </tr>
+        @{int sayac = 0;}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@{sayac += 1;} @sayac</td>
+                <td>@item.KategoriAdi</td>
+                <td>
+                    <a href="/Kategori/KategoriGuncelle/@item.KategoriID" class="btn" style="background-color:darkorange; color:aliceblue">Güncelle</a>
+                    <a href="/Kategori/KategoriSil/@item.KategoriID" class="btn" style="background-color:firebrick; color:aliceblue">Sil</a>
+                </td>
+            </tr>
+        }
+    </table>
+    <a href="/Kategori/KategoriEkle" class="btn btn-info">Kategori Ekle</a>
+    <a href="/Kategori/PasifKategorileriListele" class="btn btn-info" style="background-color:olive; color:aliceblue;">Pasif Kategori Listesi</a>*@
+
+
+
+
+@using MVC_Ticari_Otomasyon.Models.Siniflar                 @*Sadece ilgili sayfanın görünümü için gerekli View(PagedList kullanımı ile)*@
+@using PagedList
+@using PagedList.Mvc
+@model PagedList<Kategori>
+@{ ViewBag.Title = "KategorileriListele";
+    Layout = "~/Views/Shared/AdminLayout.cshtml"; }
+
+
+<br />
+
+
+
+@*<span id="MesajVer" class="d-none">@TempData["MesajGonder"]</span>*@
+
+
+
+@using (Html.BeginForm("KategorileriListele", "Kategori", FormMethod.Get))
+{
+<p>
+    Kategori Adı : @Html.TextBox("aranacakKelime")
+    <input type="submit" value="Ara" />
+</p>}
+
+
+
+
+<table class="table table-bordered" style="margin-top:20px;">
+
+    <tr>
+        <th style="display:table table-cell; vertical-align:middle;" class="text-center">#</th>
+        <th style="display:table table-cell; vertical-align:middle;" class="text-center">Kategori Adı</th>
+        <th style="display:table table-cell; vertical-align:middle;" class="text-center">Kategori Kapasitesi</th>
+        <th style="display:table table-cell; vertical-align:middle;" class="text-center">İşlemler</th>
+    </tr>
+    @{int sayac = 0;}
+    @foreach (var item in Model)
+    {
+
+<tr>
+    <td style="display:table table-cell; vertical-align:middle;" class="text-center">@{sayac += 1;} @sayac</td>
+    <td>@item.KategoriAdi</td>
+    <td>@item.KategoriKapasitesi</td>
+    <td style="display:table table-cell; vertical-align:middle;" class="text-center">
+        <a href="/Kategori/KategoriGuncelle/@item.KategoriID" class="btn" style="background-color:darkorange; color:aliceblue">Güncelle</a>
+        <a href="/Kategori/KategoriSil/@item.KategoriID" class="btn" style="background-color:firebrick; color:aliceblue">Sil</a>
+    </td>
+</tr>
+}
+</table>
+
+@Html.PagedListPager((IPagedList)Model, sayfa => Url.Action("KategorileriListele", new { sayfa }),
+new PagedListRenderOptions@*Sayfa değerine her tıklandığında, yeni bir sayfa oluşturarak bana Kategori Listesini aç*@
+{
+                LiElementClasses = new List<string>
+                                                    {
+        "page-link"         //Sayfanın linklerini ekle
+                }
+            })
+
+<a href="/Kategori/KategoriEkle" class="btn btn-info">Kategori Ekle</a>
+<a href="/Kategori/PasifKategorileriListele" class="btn btn-info" style="background-color:olive; color:aliceblue;">Pasif Kategori Listesi</a>
+
+
+@*<script>
+        $(document).ready(function () {
+            var mesaj = $('#MesajVer').text();
+            if (mesaj !== '') {
+                toastr.success(mesaj);
+            }
+        }
+    </script>*@
+

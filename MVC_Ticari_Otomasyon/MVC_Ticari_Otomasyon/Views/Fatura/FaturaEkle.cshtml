@@ -1,0 +1,46 @@
+﻿@model MVC_Ticari_Otomasyon.Models.Siniflar.Fatura
+@{ ViewBag.Title = "FaturaEkle";
+                Layout = "~/Views/Shared/AdminLayout.cshtml"; }
+
+<br />
+<h2>Yeni Fatura Ekleme Sayfası</h2>
+<br />
+
+<form class="form-group" method="post">
+    Fatura Seri No
+    <input type="text" value="@ViewBag.Seri" readonly class="form-control" name="FaturaSeriNo" />
+    @Html.ValidationMessageFor(x => x.FaturaSeriNo, "", new { @style = "color:red" })
+    <br />
+    @Html.Label("Fatura Sıra No")
+    <input type="number" value="@ViewBag.Sira" readonly class="form-control" name="FaturaSiraNo" />
+    @Html.ValidationMessageFor(x => x.FaturaSiraNo, "", new { @style = "color:red" })
+    <br />
+    @Html.Label("Vergi Dairesi")
+    @Html.TextBoxFor(x => x.FaturaVergiDairesi, new { @class = "form-control" })
+    @Html.ValidationMessageFor(x => x.FaturaVergiDairesi, "", new { @style = "color:red" })
+    <br />
+    Tarih
+    @Html.TextBoxFor(x => x.FaturaTarih, new { @class = "form-control", @type = "date" })
+    @Html.ValidationMessageFor(x => x.FaturaTarih, "", new { @style = "color:red" })
+    <br />
+    Saat
+    @Html.TextBoxFor(x => x.FaturaSaat, new { @class = "form-control", @type = "time" })
+    @Html.ValidationMessageFor(x => x.FaturaSaat, "", new { @style = "color:red" })
+    <br />
+    Teslim Eden
+    @Html.DropDownListFor(x => x.FaturaTeslimEden, (List<SelectListItem>)ViewBag.dgr1, new { @class = "form-control" })
+    @Html.ValidationMessageFor(x => x.FaturaTeslimEden, "", new { @style = "color:red" })
+    <br />
+    Teslim Alan
+    @Html.DropDownListFor(x => x.FaturaTeslimAlan, (List<SelectListItem>)ViewBag.dgr2, new { @class = "form-control" })
+    @Html.ValidationMessageFor(x => x.FaturaTeslimAlan, "", new { @style = "color:red" })
+    <br />
+    <button class="btn btn-success" id="kayitBasarili">Kaydet</button>
+    <a href="/Fatura/Index" class="btn btn-info" style="background-color:darkcyan; color:aliceblue;">Fatura Listesi</a>
+</form>
+
+<script>
+    $('#kayitBasarili').click(function () {
+        alert("Kayıt İşlemi Başarılı Bir Şekilde Gerçekleşti");
+    });
+</script>

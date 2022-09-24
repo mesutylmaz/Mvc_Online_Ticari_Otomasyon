@@ -1,0 +1,74 @@
+﻿@*@using MVC_Ticari_Otomasyon.Models.Siniflar
+    @model List<Personel>*@
+
+@using MVC_Ticari_Otomasyon.Models.Siniflar
+@using PagedList
+@using PagedList.Mvc
+@model PagedList<Personel>
+
+@{ ViewBag.Title = "PasifPersonelListesi";
+    Layout = "~/Views/Shared/AdminLayout.cshtml"; }
+
+<br />
+
+@using (Html.BeginForm("PasifPersonelListesi", "Personel", FormMethod.Get))
+{
+<p>
+    Personel Adı : @Html.TextBox("aranacakKelime")
+    <input type="submit" value="Ara" />
+</p>}
+
+<table class="table table-bordered" style="margin-top:20px;">
+    <tr>
+        <th style="display:table table-cell; vertical-align:middle;" class="text-center">#</th>
+        <th style="display:table table-cell; vertical-align:middle;" class="text-center">Fotoğraf</th>
+        <th style="display:table table-cell; vertical-align:middle;" class="text-center">Personel</th>
+        <th style="display:table table-cell; vertical-align:middle;" class="text-center">Departman</th>
+        <th style="display:table table-cell; vertical-align:middle;" class="text-center">Adres</th>
+        <th style="display:table table-cell; vertical-align:middle;" class="text-center">Şehir</th>
+        <th style="display:table table-cell; vertical-align:middle;" class="text-center">Mail</th>
+        <th style="display:table table-cell; vertical-align:middle;" class="text-center">Telefon</th>
+        <th style="display:table table-cell; vertical-align:middle;" class="text-center">Üniversite Bilgisi</th>
+        <th style="display:table table-cell; vertical-align:middle;" class="text-center">Yetenek Bilgisi</th>
+        <th style="display:table table-cell; vertical-align:middle;" class="text-center">Yetki</th>
+        <th style="display:table table-cell; vertical-align:middle;" class="text-center">İşlemler</th>
+    </tr>
+    @{int sayac = 0;}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td style="display:table table-cell; vertical-align:middle;" class="text-center">@{sayac += 1;} @sayac</td>
+            <td style="display:table table-cell; vertical-align:middle;" class="text-center">
+            @if (item.PersonelGorseli == null || item.PersonelGorseli == "")
+            {
+                <img src="~/Images/resim-yok.png" width="120" height="80" /> }
+            else
+            {
+                <img src="@item.PersonelGorseli" width="120" height="80" />}
+            </td>
+            <td style="display:table table-cell; vertical-align:middle;">@item.PersonelAdi @item.PersonelSoyadi</td>
+            <td style="display:table table-cell; vertical-align:middle;">@item.Departman.DepartmanAdi</td>
+            <td style="display:table table-cell; vertical-align:middle;">@item.PersonelAdresi</td>
+            <td style="display:table table-cell; vertical-align:middle;">@item.PersonelSehir</td>
+            <td style="display:table table-cell; vertical-align:middle;">@item.PersonelMaili</td>
+            <td style="display:table table-cell; vertical-align:middle;">@item.PersonelTelefonu</td>
+            <td style="display:table table-cell; vertical-align:middle;">@item.UniversiteBilgisi</td>
+            <td style="display:table table-cell; vertical-align:middle;">@item.YetenekBilgisi</td>
+            <td style="display:table table-cell; vertical-align:middle;">@item.Yetki</td>
+            <td style="display:table table-cell; vertical-align:middle;" class="text-center">
+                <a href="/Personel/PersoneliAktifYap/@item.PersonelID" class="btn" style="background-color:mediumpurple; color:aliceblue">Aktif Et</a>
+            </td>
+        </tr>
+    }
+</table>
+
+@Html.PagedListPager((IPagedList)Model, sayfa => Url.Action("PasifPersonelListesi", new { sayfa }),
+new PagedListRenderOptions@*Sayfa değerine her tıklandığında, yeni bir sayfa oluşturarak bana Kategori Listesini aç*@
+{
+                LiElementClasses = new List<string>
+                                                                        {
+"page-link"         //Sayfanın linklerini ekle
+                }
+            })
+
+<a href="/Personel/PersonelListesi" class="btn btn-info" style="background-color:darkcyan; color:aliceblue;">Aktif Personel Listesi</a>

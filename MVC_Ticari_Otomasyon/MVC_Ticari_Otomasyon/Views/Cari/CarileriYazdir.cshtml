@@ -1,0 +1,154 @@
+﻿@using MVC_Ticari_Otomasyon.Models.Siniflar
+
+@model List<Cari>
+
+@{ Layout = null; }
+
+<br />
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Bootstrap 4 Responsive Datatable and Export to PDF, CSV</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css">
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.2/css/buttons.bootstrap4.min.css">
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap4.min.css">
+
+</head>
+
+<body>
+
+    <table id="example" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
+
+        <thead>
+
+            <tr>
+
+                <th style="display:table table-cell; vertical-align:middle;" class="text-center">ID</th>
+                <th style="display:table table-cell; vertical-align:middle;" class="text-center">Fotoğraf</th>
+                <th style="display:table table-cell; vertical-align:middle;" class="text-center">Cari</th>
+                <th style="display:table table-cell; vertical-align:middle;" class="text-center">Şehir</th>
+                <th style="display:table table-cell; vertical-align:middle;" class="text-center">Meslek</th>
+                <th style="display:table table-cell; vertical-align:middle;" class="text-center">Mail</th>
+                <th style="display:table table-cell; vertical-align:middle;" class="text-center">Telefon</th>
+                <th style="display:table table-cell; vertical-align:middle;" class="text-center">Adres</th>
+                <th style="display:table table-cell; vertical-align:middle;" class="text-center">Yetki</th>
+                <th style="display:table table-cell; vertical-align:middle;" class="text-center">Durum</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+            @{int sayac = 0;}
+            @foreach (var item in Model)
+
+            {
+
+                <tr>
+
+                    <td style="display:table table-cell; vertical-align:middle;" class="text-center">@{sayac += 1;} @sayac</td>
+                    <td style="display:table table-cell; vertical-align:middle;" class="text-center">
+                        @if (item.CariGorseli == null || item.CariGorseli == "")
+                        {
+                            <img src="~/Images/resim-yok.png" width="120" height="80" /> 
+                        }
+                        else
+                        {
+                            <img src="@item.CariGorseli" width="120" height="80" />
+                        }
+                    </td>
+                    <td style="display:table table-cell; vertical-align:middle;">@item.CariAdi @item.CariSoyadi</td>
+                    <td style="display:table table-cell; vertical-align:middle;">@item.CariSehir</td>
+                    <td style="display:table table-cell; vertical-align:middle;">@item.CariMeslek</td>
+                    <td style="display:table table-cell; vertical-align:middle;">@item.CariMaili</td>
+                    <td style="display:table table-cell; vertical-align:middle;">@item.CariTelefonu</td>
+                    <td style="display:table table-cell; vertical-align:middle;">@item.CariAdresi</td>
+                    <td style="display:table table-cell; vertical-align:middle;">@item.Yetki</td>
+                    <td style="display:table table-cell; vertical-align:middle;">@item.CariDurumu</td>
+                    <td style="display:table table-cell; vertical-align:middle;" class="text-center">
+                        <a href="/Cari/CariGetir/@item.CariID" class="btn" style="background-color:darkorange; color:aliceblue">Güncelle</a>
+                        <a href="/Cari/CariSil/@item.CariID" class="btn" style="background-color:firebrick; color:aliceblue">Sil</a>
+                        <a href="/Cari/CariSatisGecmisi/@item.CariID" class="btn" style="background-color:plum; color:aliceblue">Satış Geçmişi</a>
+                    </td>
+
+                </tr>
+            }
+
+
+
+        </tbody>
+
+    </table>
+    <a href="/Cari/CariListesi" class="btn btn-primary" style="color:aliceblue;">Carilere Dön</a>
+    <a href="/Satis/SatislariYazdir" class="btn btn-primary" style="color:aliceblue;">Satış Listesi</a>
+    <a href="/Personel/PersonelleriYazdir" class="btn btn-success" style="color:aliceblue;">Personel Listesi</a>
+    <a href="/Departman/DepartmanlariYazdir" class="btn btn-warning" style="color:aliceblue;">Departman Listesi</a>
+    <a href="/Urun/UrunleriYazdir" class="btn btn-danger" style="color:aliceblue;">Ürün Listesi</a>
+    <a href="/Fatura/FaturalariYazdir" class="btn btn-secondary" style="color:aliceblue;">Fatura Listesi</a>
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+
+    <script src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
+
+    <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.bootstrap4.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+
+    <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
+
+    <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
+
+    <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.colVis.min.js"></script>
+
+    <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+
+    <script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap4.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            var table = $('#example').DataTable({
+
+                lengthChange: false,
+
+                buttons: ['copy', 'excel', 'csv', 'pdf', 'colvis']
+
+
+                //"language": {
+                //        "url": "https://cdn.datatables.net/plug-ins/1.10.20/i18n/Turkish.json"
+                //    }
+
+            });
+
+
+
+            table.buttons().container()
+
+                .appendTo('#example_wrapper .col-md-6:eq(0)');
+
+        });</script>
+
+</body>
+
+</html>
+

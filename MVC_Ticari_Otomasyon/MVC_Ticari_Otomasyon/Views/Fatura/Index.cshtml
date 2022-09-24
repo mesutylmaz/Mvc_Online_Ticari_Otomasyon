@@ -1,0 +1,91 @@
+﻿@*@using MVC_Ticari_Otomasyon.Models.Siniflar
+    @model List<Fatura>*@
+
+@using MVC_Ticari_Otomasyon.Models.Siniflar
+@using PagedList
+@using PagedList.Mvc
+@model PagedList<Fatura>
+
+@{ ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/AdminLayout.cshtml"; }
+
+<br />
+
+@using (Html.BeginForm("Index", "Fatura", FormMethod.Get))
+{
+<p>
+    Aranacak Kelime : @Html.TextBox("aranacakKelime")
+    <input type="submit" value="Ara" />
+</p>}
+
+<table class="table table-bordered" style="margin-top:20px;">
+    <tr>
+        <th style="display:table table-cell; vertical-align:middle;" class="text-center">#</th>
+        @*<th style="display:table table-cell; vertical-align:middle;" class="text-center">Seri No</th>
+            <th style="display:table table-cell; vertical-align:middle;" class="text-center">Sıra No</th>*@
+        <th style="display:table table-cell; vertical-align:middle;" class="text-center">Vergi Dairesi</th>
+        <th style="display:table table-cell; vertical-align:middle;" class="text-center">Tarih</th>
+        <th style="display:table table-cell; vertical-align:middle;" class="text-center">Saat</th>
+        <th style="display:table table-cell; vertical-align:middle;" class="text-center">Toplam Tutar</th>
+        <th style="display:table table-cell; vertical-align:middle;" class="text-center">İşlemler</th>
+    </tr>
+    @{int sayac = 0;}
+    @foreach (var item in Model)
+    {
+<tr>
+    <td style="display:table table-cell; vertical-align:middle;" class="text-center">@{sayac += 1;} @sayac</td>
+    @*<td style="display:table table-cell; vertical-align:middle;">@item.FaturaSeriNo</td>
+        <td style="display:table table-cell; vertical-align:middle;">@item.FaturaSiraNo</td>*@
+    <td style="display:table table-cell; vertical-align:middle;">@item.FaturaVergiDairesi</td>
+    <td style="display:table table-cell; vertical-align:middle;">@item.FaturaTarih.ToShortDateString()</td>
+    <td style="display:table table-cell; vertical-align:middle;">@item.FaturaSaat</td>
+    <td style="display:table table-cell; vertical-align:middle;">@item.ToplamTutar ₺</td>
+    <td style="display:table table-cell; vertical-align:middle;" class="text-center">
+        <a href="/Fatura/FaturaDetay/@item.FaturaID" class="btn" style="background-color:forestgreen; color:aliceblue">Detay</a>
+        <a href="/Fatura/FaturaGetir/@item.FaturaID" class="btn" style="background-color:darkorange; color:aliceblue">Güncelle</a>
+        <button type="button" class="btn btn-info" style="background-color:peru; color:aliceblue;" data-toggle="modal" data-target="#Modal1">Seri No-Sıra No</button>
+        @*<a href="/Urun/FaturaKalemiEkle/@item.FaturaID" class="btn btn-info" style="background-color: darkviolet; color: aliceblue;">Yeni Kalem Ekle</a>*@
+    </td>
+</tr>
+}
+</table>
+
+@Html.PagedListPager((IPagedList)Model, sayfa => Url.Action("Index", new { sayfa }),
+new PagedListRenderOptions@*Sayfa değerine her tıklandığında, yeni bir sayfa oluşturarak bana Kategori Listesini aç*@
+{
+                LiElementClasses = new List<string>
+                                                                                                            {
+"page-link"         //Sayfanın linklerini ekle
+                }
+            })
+
+<a href="/Fatura/FaturaEkle" class="btn btn-info">Yeni Fatura Ekle</a>
+<br />
+<br />
+
+
+<div class="modal" id="Modal1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Fatura Seri ve Sıra No</h2>
+            </div>
+            <div class="modal-body">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Seri No</th>
+                        <th>Sıra No</th>
+                    </tr>
+                    @foreach (var item in Model)
+                    {
+        <tr>
+            <td>@item.FaturaSeriNo</td>
+            <td>@item.FaturaSiraNo</td>
+        </tr>
+}
+                </table>
+                <button type="button" class="btn" style="background-color:firebrick; color:aliceblue;" data-dismiss="modal">Kapat</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,82 @@
+﻿@model MVC_Ticari_Otomasyon.Models.Siniflar.Personel
+@{
+    ViewBag.Title = "PersonelGetir";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<br />
+<h2>Personel Güncelleme Sayfası</h2>
+<br />
+
+@using (Html.BeginForm("PersonelGuncelle", "Personel", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @*@Html.AntiForgeryToken()*@
+    <div class="form-group">
+        @Html.HiddenFor(x => x.PersonelID)
+
+        Personel Görseli
+        <input type="file" name="PersonelGorseli" />
+        <br />
+        @*@Html.EditorFor(z => z.PersonelGorseli, new { htmlAttributes = new { @class = "form-control", type = "file" } })
+            <br />*@
+
+        Personel Adı
+        @Html.TextBoxFor(x => x.PersonelAdi, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.PersonelAdi, "", new { @style = "color:red" })
+        <br />
+
+        Personel Soyadı
+        @Html.TextBoxFor(x => x.PersonelSoyadi, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.PersonelSoyadi, "", new { @style = "color:red" })
+        <br />
+
+        Departman
+        @Html.DropDownListFor(x => x.Departmanid, (List<SelectListItem>)ViewBag.dgr1, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Departmanid, "", new { @style = "color:red" })
+        <br />
+
+        Adres
+        @Html.TextAreaFor(x => x.PersonelAdresi, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.PersonelAdresi, "", new { @style = "color:red" })
+        <br />
+
+        Şehir
+        @Html.TextBoxFor(x => x.PersonelSehir, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.PersonelSehir, "", new { @style = "color:red" })
+        <br />
+
+        Mail
+        @Html.TextBoxFor(x => x.PersonelMaili, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.PersonelMaili, "", new { @style = "color:red" })
+        <br />
+
+        Telefon
+        @Html.TextBoxFor(x => x.PersonelTelefonu, new { @class = "form-control", @type = "phone" })
+        @Html.ValidationMessageFor(x => x.PersonelTelefonu, "", new { @style = "color:red" })
+        <br />
+
+        Üniversite Bilgisi
+        @Html.TextBoxFor(x => x.UniversiteBilgisi, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.UniversiteBilgisi, "", new { @style = "color:red" })
+        <br />
+
+        Yetenek Bilgisi
+        @Html.TextAreaFor(x => x.YetenekBilgisi, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.YetenekBilgisi, "", new { @style = "color:red" })
+        <br />
+
+        Yetki
+        @Html.DropDownListFor(x => x.Yetki, (List<SelectListItem>)ViewBag.Yetki, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Yetki, "", new { @style = "color:red" })
+        <br />
+
+    </div>
+    <br />
+    <button class="btn" style="background-color:#a725a4; color:antiquewhite" id="kayitBasarili">Değişiklikleri Kaydet</button>
+    <a href="/Personel/PersonelListesi" class="btn btn-info" style="background-color:darkcyan; color:aliceblue;">Personel Listesi</a>
+}
+
+
+<script>$('#kayitBasarili').click(function () {
+        alert("Güncelleme İşlemi Başarılı Bir Şekilde Gerçekleşti");
+    });</script>

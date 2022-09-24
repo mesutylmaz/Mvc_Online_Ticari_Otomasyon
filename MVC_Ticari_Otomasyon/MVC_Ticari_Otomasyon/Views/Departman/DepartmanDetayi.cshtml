@@ -1,0 +1,46 @@
+﻿@using MVC_Ticari_Otomasyon.Models.Siniflar
+@model List<Personel>
+@{
+    ViewBag.Title = "DepartmanDetayi";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<br />
+<h2>Departman Personel Listesi</h2>
+<br />
+
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item active">@ViewBag.DepartmanAdi Departmanı</li>
+</ol>
+
+
+<table class="table table-hover">
+    <tr>
+        <th style="display:table table-cell; vertical-align:middle;" class="text-center">#</th>
+        <th style="display:table table-cell; vertical-align:middle;" class="text-center">Personel Görseli</th>
+        <th style="display:table table-cell; vertical-align:middle;" class="text-center">Personel Adı</th>
+        <th style="display:table table-cell; vertical-align:middle;" class="text-center">Personel Soyadı</th>
+        <th style="display:table table-cell; vertical-align:middle;" class="text-center">Gerçekleştirilen İşlem</th>
+    </tr>
+    @{int sayac = 0;}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td style="display:table table-cell; vertical-align:middle;" class="text-center">@{sayac += 1;} @sayac</td>
+            <td style="display:table table-cell; vertical-align:middle;" class="text-center">
+                @if (item.PersonelGorseli == null || item.PersonelGorseli == "")
+                {
+                    <img src="~/Images/resim-yok.png" width="80" height="80" />
+                }
+                else
+                {
+                    <img src="@item.PersonelGorseli" width="80" height="80" />
+                }
+            </td>
+            <td style="display:table table-cell; vertical-align:middle;" class="text-center">@item.PersonelAdi</td>
+            <td style="display:table table-cell; vertical-align:middle;" class="text-center">@item.PersonelSoyadi</td>
+            <td style="display:table table-cell; vertical-align:middle;" class="text-center"><a href="/Departman/DepartmanPersonelSatis/@item.PersonelID" class="btn btn-default" style="background-color:coral;">Satışlar</a></td>
+        </tr>
+    }
+</table>
+<a href="/Departman/DepartmanListesi" class="btn btn-info" style="background-color:darkcyan; color:aliceblue;">Departman Listesi</a>

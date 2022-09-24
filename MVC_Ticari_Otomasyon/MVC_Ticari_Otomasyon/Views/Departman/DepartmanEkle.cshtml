@@ -1,0 +1,26 @@
+﻿@model MVC_Ticari_Otomasyon.Models.Siniflar.Departman
+@{
+    ViewBag.Title = "DepartmanEkle";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<br />
+<h2>Departman Ekleme Sayfası</h2>
+<br />
+
+<form class="form-group" method="post">
+
+    Departman Adı
+    @Html.TextBoxFor(x => x.DepartmanAdi, new { @class = "form-control" })
+    @Html.ValidationMessageFor(x => x.DepartmanAdi, "", new { @style = "color:red" })
+    <br />
+
+    Departman Kapasitesi
+    @Html.TextBoxFor(z => z.DepartmanKapasitesi, new { @class = "form-control", @type = "number" })
+    @Html.ValidationMessageFor(x => x.DepartmanKapasitesi, "", new { @style = "color:red" })
+    <br />
+
+    <button class="btn btn-success">Kaydet</button>
+    <a href="/Departman/DepartmanListesi" class="btn btn-info" style="background-color:darkcyan; color:aliceblue;">Departman Listesi</a>
+</form>
+

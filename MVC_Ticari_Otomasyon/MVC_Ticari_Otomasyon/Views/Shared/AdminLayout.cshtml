@@ -1,0 +1,194 @@
+﻿
+@{ Layout = null; }
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Mvc5 ile Online Ticari Otomasyon Projesi</title>
+    <link href="~/Web/dist/css/styles.css" rel="stylesheet" />
+    <link href="~/Content/toastr.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
+    <script src="https://icons.getbootstrap.com/assets/icons/card-list.svg"></script>
+</head>
+<body>
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+        <a class="navbar-brand" href="index.html">Ticari Otomasyon</a><button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#">
+            <i class="fas fa-bars"></i>
+        </button><!-- Navbar Search-->
+        <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+            @*<div class="input-group">
+                    <input class="form-control" type="text" placeholder="Aranacak Kelime..." aria-label="Search" aria-describedby="basic-addon2" />
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="button"><i class="fas fa-search"></i></button>
+                    </div>
+                </div>*@
+        </form>
+        <!-- Navbar-->
+        <ul class="navbar-nav ml-auto ml-md-0">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                    @*<a class="dropdown-item" href="#">Ayarlar</a>
+                        <a class="dropdown-item" href="/Personel/Index">Hesabım</a>*@
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="/Personel/LogOut">Çıkış</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                <div class="sb-sidenav-menu">
+                    <div class="nav">
+                        <div class="sb-sidenav-menu-heading">İşlem Menüsü</div>
+                        <a class="nav-link" href="/Kategori/KategorileriListele">
+                            <div class="sb-nav-link-icon"><i class="fas fa-th-list"></i></div>
+                            Kategoriler
+                        </a>
+                        <a class="nav-link" href="/Urun/UrunlerListesi">
+                            <div class="sb-nav-link-icon"><i class="fas fa-gift"></i></div>
+                            Ürünler
+                        </a>
+                        <a class="nav-link" href="/Galeri/Index">
+                            <div class="sb-nav-link-icon"><i class="fas fa-camera-retro"></i></div>
+                            Ürün Galeri
+                        </a>
+                        <a class="nav-link" href="/Departman/DepartmanListesi">
+                            <div class="sb-nav-link-icon"><i class="fas fa-sitemap"></i></div>
+                            Departmanlar
+                        </a>
+                        <a class="nav-link" href="/Cari/CariListesi">
+                            <div class="sb-nav-link-icon"><i class="fas fa-building"></i></div>
+                            Cariler
+                        </a>
+                        <a class="nav-link" href="/Personel/PersonelListesi">
+                            <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
+                            Personeller
+                        </a>
+                        <a class="nav-link" href="/Personel/PersonelKarti">
+                            <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
+                            Personel Detayları
+                        </a>
+                        @if (User.IsInRole("A"))        //Sisteme giriş yapan personelin rolü A ise; Hızlı Bakış Sekmesini sol panelde görebilsin. A değilse göremesin.
+                        {
+                            <a class="nav-link" href="/PersonelYetkileri/YetkiListesi">
+                                <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
+                                Yetkilendirme
+                            </a>
+                        }
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                            <div class="sb-nav-link-icon"><i class="fas fa-chart-pie"></i></div>
+                            Grafikler
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
+                                    Grafik Türleri
+                                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                </a>
+                                <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
+                                    <nav class="sb-sidenav-menu-nested nav">
+                                        <a class="nav-link" href="/Grafik/Index5">Pie Grafik</a>
+                                        <a class="nav-link" href="/Grafik/Index6">Line Grafik</a>
+                                        <a class="nav-link" href="/Grafik/Index7">Column Grafik</a>
+                                    </nav>
+                                </div>
+                                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
+                                    Hata Sayfaları
+                                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                </a>
+                                <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
+                                    <nav class="sb-sidenav-menu-nested nav"><a class="nav-link" href="/Error/PageError401">401 Hata Sayfası</a><a class="nav-link" href="/Error/PageError403/">403 Hata Sayfası</a><a class="nav-link" href="/Error/PageError404/">404 Hata Sayfası</a></nav>
+                                </div>
+                            </nav>
+                        </div>
+                        <div class="sb-sidenav-menu-heading">Rapor & Fatura</div>
+                        <a class="nav-link" href="/Satis/SatisListesi">
+                            <div class="sb-nav-link-icon"><i class="fas fa-credit-card"></i></div>
+                            Satışlar
+                        </a>
+                        <a class="nav-link" href="/Fatura/Index">
+                            <div class="sb-nav-link-icon"><i class="fas fa-clipboard"></i></div>
+                            Faturalar
+                        </a>
+                        <a class="nav-link" href="/Fatura/DinamikFaturalar">
+                            <div class="sb-nav-link-icon"><i class="fas fa-object-group"></i></div>
+                            Dinamik Faturalar
+                        </a>
+                        <a class="nav-link" href="/Fatura/FaturalariYazdir">
+                            <div class="sb-nav-link-icon"><i class="fas fa-object-group"></i></div>
+                            Liste Çıktısı Al
+                        </a>
+                        @*<a class="nav-link" href="index.html">
+            <div class="sb-nav-link-icon"><i class="fas fa-minus-circle"></i></div>
+            Duyurular
+        </a>*@
+                        <a class="nav-link" href="/Kargo/KargoDetayListesi">
+                            <div class="sb-nav-link-icon"><i class="fas fa-archive"></i></div>
+                            Kargolar
+                        </a>
+                        @*<a class="nav-link" href="/Urun/UrunListesi">
+            <div class="sb-nav-link-icon"><i class="fas fa-print"></i></div>
+            Pdf ~ Excel
+        </a>*@
+                        <a class="nav-link" href="/Alert/Index">
+                            <div class="sb-nav-link-icon"><i class="fas fa-music"></i></div>
+                            Alertler
+                        </a>
+                        <a class="nav-link" href="/Istatistik/Index">
+                            <div class="sb-nav-link-icon"><i class="fas fa-signal"></i></div>
+                            İstatistikler
+                        </a>
+                        @if (User.IsInRole("A"))        //Sisteme giriş yapan personelin rolü A ise; Hızlı Bakış Sekmesini sol panelde görebilsin. A değilse göremesin.
+                        {
+                    <a class="nav-link" href="/Istatistik/KolayTablolar">
+                        <div class="sb-nav-link-icon">
+                            <i class="fas fa-car"></i>
+                        </div>
+                        Hızlı Bakış
+                    </a>}
+                        <a class="nav-link" href="/Personel/LogOut">
+                            <div class="sb-nav-link-icon"><i class="fas fa-sign-out-alt"></i></div>
+                            Çıkış
+                        </a>
+                    </div>
+                </div>
+                @*<div class="sb-sidenav-footer">
+                        <div class="small">Olarak giriş yaptı:</div>
+                        Ticari Otomasyon
+                    </div>*@
+            </nav>
+        </div>
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid">
+                    @RenderBody()
+                </div>
+            </main>
+            @*<footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">Telif hakkı &copy; @DateTime.Now.Year</div>
+                            <div>
+                                <a href="#">Gizlilik Politikası</a>
+                                &middot;
+                                <a href="#">Şartlar &amp; Koşullar</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>*@
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="~/Web/dist/js/scripts.js"></script>
+    <script src="~/Scripts/toastr.js"></script>
+</body>
+</html>
