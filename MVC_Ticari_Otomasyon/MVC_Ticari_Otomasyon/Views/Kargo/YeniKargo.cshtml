@@ -1,0 +1,45 @@
+﻿@model MVC_Ticari_Otomasyon.Models.Siniflar.KargoDetay
+@{
+    ViewBag.Title = "YeniKargo";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<br />
+<h2>Kargo Ekleme Sayfası</h2>
+<br />
+
+<form class="form-group" method="post">
+
+    @Html.LabelFor(x => x.TakipKodu)
+    <input type="text" value="@ViewBag.TakipKodu" readonly class="form-control" name="TakipKodu" />
+    <br />
+
+    @Html.LabelFor(x => x.Personel)
+    @*@Html.DropDownListFor(x => x.Personel, (List<SelectListItem>)ViewBag.dgr, new { @class = "form-control" })*@  @*Bu şekilde yazarsak, classlar arası ilişki olmadığından KargoID'sini Personel Sütununa basıyor.*@
+    @Html.DropDownListFor(x => x.Personel, (List<SelectListItem>)ViewBag.dgr2, new { @class = "form-control" })
+    <br />
+
+    @Html.Label("Alıcı")
+    @Html.DropDownListFor(x => x.Alici, (List<SelectListItem>)ViewBag.dgr1, new { @class = "form-control" })
+    <br />
+
+    @Html.LabelFor(x => x.Tarih)
+    <input type="date" name="Tarih" class="form-control" />
+    <br />
+
+    @Html.LabelFor(x => x.Aciklama)
+    @Html.TextAreaFor(x => x.Aciklama, new { @class = "form-control" })
+    <br />
+
+
+    <button class="btn btn-success" id="kayitBasarili">Kaydet</button>
+    <a href="/Kargo/KargoDetayListesi" class="btn btn-info" style="background-color:darkcyan; color:aliceblue;">Kargo Listesi</a>
+</form>
+
+
+<script>
+    $('#kayitBasarili').click(function () {
+        alert("Kargo başarılı bir şekilde eklendi.")
+    });
+</script>

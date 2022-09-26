@@ -1,0 +1,35 @@
+﻿@model MVC_Ticari_Otomasyon.Models.Siniflar.KargoUlasimBilgisi
+@{
+    ViewBag.Title = "KargoUlasimBilgisiEkle";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<br />
+<h2>Kargo Ulaşım Bilgisi Ekleme Sayfası</h2>
+<br />
+
+<form class="form-group" method="post">
+
+    Açıklama
+    <input type="text" class="form-control" name="Aciklama" />
+    <br />
+
+    Takip Kodu
+    <input type="text" class="form-control" name="KargoTakipKodu" />
+    <br />
+
+    Tarih
+    <input type="date" name="TarihZaman" class="form-control" />
+    <br />
+
+
+    <button class="btn btn-success" id="kayitBasarili">Kaydet</button>
+    <a href="/Kargo/KargoDetayListesi" class="btn btn-info" style="background-color:darkcyan; color:aliceblue;">Kargo Listesi</a>
+</form>
+
+
+<script>
+    $('#kayitBasarili').click(function () {
+        alert("Kargo başarılı bir şekilde eklendi.")
+    });</script>

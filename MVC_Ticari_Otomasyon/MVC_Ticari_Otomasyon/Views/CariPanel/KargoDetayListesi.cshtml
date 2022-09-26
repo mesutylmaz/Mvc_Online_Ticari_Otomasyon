@@ -1,0 +1,44 @@
+﻿@using MVC_Ticari_Otomasyon.Models.Siniflar
+@model List<KargoDetay>
+
+@{
+    ViewBag.Title = "KargoDetayListesi";
+    Layout = "~/Views/Shared/_CariLayout.cshtml";
+}
+
+<br />
+
+@using (Html.BeginForm("KargoDetayListesi", "CariPanel", FormMethod.Get))
+{
+    <p>
+        Kargo Takip Numarası : @Html.TextBox("aranacakKelime")
+        <input type="submit" value="Ara" />
+    </p>
+}
+
+<table class="table table-bordered" style="margin-top:20px;">
+    <tr>
+        <th style="display:table table-cell; vertical-align:middle;" class="text-center">#</th>
+        <th style="display:table table-cell; vertical-align:middle;" class="text-center">Açıklama</th>
+        <th style="display:table table-cell; vertical-align:middle;" class="text-center">Personel</th>
+        <th style="display:table table-cell; vertical-align:middle;" class="text-center">Alıcı</th>
+        <th style="display:table table-cell; vertical-align:middle;" class="text-center">Takip Kodu</th>
+        <th style="display:table table-cell; vertical-align:middle;" class="text-center">Tarih</th>
+        <th style="display:table table-cell; vertical-align:middle;" class="text-center">İşlemler</th>
+    </tr>
+    @{int sayac = 0;}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td style="display:table table-cell; vertical-align:middle;" class="text-center">@{sayac += 1;} @sayac</td>
+            <td style="display:table table-cell; vertical-align:middle;">@item.Aciklama</td>
+            <td style="display:table table-cell; vertical-align:middle;">@item.Personel</td>
+            <td style="display:table table-cell; vertical-align:middle;">@item.Alici</td>
+            <td style="display:table table-cell; vertical-align:middle;">@item.TakipKodu</td>
+            <td style="display:table table-cell; vertical-align:middle;">@item.Tarih.ToShortDateString()</td>
+            <td style="display:table table-cell; vertical-align:middle;" class="text-center">
+                <a href="/CariPanel/KargoUlasimBilgileri/@item.TakipKodu" class="btn" style="background-color:forestgreen; color:aliceblue">Detay</a>
+            </td>
+        </tr>
+    }
+</table>

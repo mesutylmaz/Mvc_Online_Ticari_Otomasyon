@@ -1,0 +1,40 @@
+﻿@using MVC_Ticari_Otomasyon.Models.Siniflar
+@model List<FaturaKalem>
+@{
+    ViewBag.Title = "FaturaDetay";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+
+
+<br />
+<h2>Fatura Kalemleri Sayfası</h2>
+<br />
+
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item active">Fatura Seri-Sıra No : @ViewBag.Seri - @ViewBag.Sira</li>
+</ol>
+
+
+<table class="table table-hover">
+    <tr>
+        <th style="display:table table-cell; vertical-align:middle;" class="text-center">#</th>
+        <th style="display:table table-cell; vertical-align:middle;" class="text-center">Fatura Kalemi</th>
+        <th style="display:table table-cell; vertical-align:middle;" class="text-center">Miktar</th>
+        <th style="display:table table-cell; vertical-align:middle;" class="text-center">Birim Fiyat</th>
+        <th style="display:table table-cell; vertical-align:middle;" class="text-center">Tutar</th>
+    </tr>
+    @{int sayac = 0;}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td style="display:table table-cell; vertical-align:middle;" class="text-center">@{sayac += 1;} @sayac</td>
+            <td style="display:table table-cell; vertical-align:middle;" class="text-center">@item.FaturaKalemi</td>
+            <td style="display:table table-cell; vertical-align:middle;" class="text-center">@item.FaturaKalemMiktar</td>
+            <td style="display:table table-cell; vertical-align:middle;" class="text-center">@item.FaturaKalemBirimFiyat ₺</td>
+            <td style="display:table table-cell; vertical-align:middle;" class="text-center">@item.FaturaKalemTutar ₺</td>
+        </tr>
+    }
+</table>
+@*<a href="/Fatura/FaturaKalemiEkle" class="btn btn-info" style="background-color:peru; color:aliceblue;">Yeni Kalem Girişi Ekle</a>*@
+<a href="/Fatura/Index" class="btn btn-info" style="background-color:darkcyan; color:aliceblue;">Fatura Listesi</a>

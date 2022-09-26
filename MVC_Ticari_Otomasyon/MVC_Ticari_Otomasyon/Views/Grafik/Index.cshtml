@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+
+
+@{ 
+    var grafik = new Chart(width: 500, height:500);
+    grafik.AddTitle(text: "Kategori ve Ürün Sayıları");     //Grafik başlığı
+    grafik.AddLegend(title:"Değerler");        //Tablo verilerinin Yan başlığı
+    grafik.AddSeries(   //yatay ve dikey verilerin içeriğini tutan dizi
+        name: "Veriler",    //grafik verilerinin genel adı
+        //chartType:"Column",           //Grafik değerlerini sütun olarak gösterir => Default olarak bu şekilde çalışıyor zaten.
+        //chartType:"Pie",            //Grafik değerlerini pasta dilimi olarak gösterir
+        //chartType:"Bubble",         //Grafik değerlerini Kabarcık olarak gösterir
+        chartType:"Doughnut",      //Grafik değerlerini kek dilimi olarak gösterir
+        //chartType:"Area",        //Grafik değerlerini Alan olarak gösterir
+        //chartType:"Bar",           //Grafikte x ve y değerlerini yer değiştirerek gösterir 
+        xValue: new[] { "Beyaz Eşya", "Televizyon", "Telefon", "Bilgisayar" },      //yataydaki veri adları
+        yValues: new[] { "50", "90", "123", "68" }        //Dikeydeki veri adları
+        );
+    grafik.Write();
+}
+
+
